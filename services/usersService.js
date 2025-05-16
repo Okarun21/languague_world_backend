@@ -69,18 +69,7 @@ const usersService = {
 
   /*
   authenticateUser: async (email, password) => {
-    try {
-      const user = await User.findOne({ email });
-      if (!user) {
-        throw new Error('Usuario no encontrado');
-      }
-      if (user.password !== password) {
-        throw new Error('Contraseña inválida');
-      }
-      return user;
-    } catch (error) {
-      throw error;
-    }
+
   },
   */
 };

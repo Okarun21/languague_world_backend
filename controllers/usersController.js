@@ -81,13 +81,7 @@ const usersController = {
 
   /*
   authenticateUser: async (req, res) => {
-    try {
-      const { email, password_hash } = req.body;
-      const user = await usersService.authenticateUser(email, password_hash);
-      res.json({ message: 'Autenticación exitosa', user });
-    } catch (error) {
-      res.status(401).json({ message: error.message });
-    }
+   
   },
   */
 };
