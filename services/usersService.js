@@ -68,15 +68,12 @@ const usersService = {
   },
 
   /*
-  // Ejemplo para autenticar (por email y password)
   authenticateUser: async (email, password) => {
     try {
       const user = await User.findOne({ email });
       if (!user) {
         throw new Error('Usuario no encontrado');
       }
-      // Aquí deberías comparar el password recibido con el hash almacenado
-      // usando bcrypt o similar, este es un ejemplo simplificado:
       if (user.password !== password) {
         throw new Error('Contraseña inválida');
       }
