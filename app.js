@@ -1,6 +1,8 @@
 const express = require('express');
-const authRoutes = require('./routes/authRoutes');
 const usersRoutes = require('./routes/usersRoutes'); 
+const profileRoutes = require('./routes/profileRoutes'); 
+const imageProfileRoutes = require('./routes/imagesPerfilRoutes');
+const levelRoutes = require('./routes/levelRoutes');
 const path = require('path');
 const connectDB = require('./database/mongodb'); 
 const morgan = require('morgan');
@@ -22,8 +24,10 @@ app.get('/', (req, res) => {
 
 // Usar las rutas de usuarios bajo el path /users
 app.use('/users', usersRoutes);
+app.use('/profile',profileRoutes);
+app.use('/images/profiles', imageProfileRoutes);
+app.use('/levels', levelRoutes);
 
-app.use('/users/auth', authRoutes);
 
 // Puerto configurado en .env o 3000 por defecto
 const PORT = process.env.PORT || 3000;

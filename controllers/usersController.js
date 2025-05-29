@@ -16,36 +16,32 @@ const usersController = {
     try {
       const { name, email, password } = req.body;
 
-      if (!password) {
+      if (!name || !email || !password) {
         return res
           .status(400)
-          .json({ message: "La contraseña no puede estar vacía" });
+          .json({ message: "Todos los campos son obligatorios" });
       }
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res
-          .status(400)
-          .json({ error: "El usuario con este email ya existe" });
+      if (!email.includes("@") || !email.includes(".")) {
+        return res.status(400).json({ message: "El email no es válido" });
       }
 
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      const user = new User({
+      const user = await usersService.createUser({
         name,
         email,
         password: hashedPassword,
         creation_date: new Date(),
       });
 
-      await user.save();
-
-      const userObj = user.toObject();
-      delete userObj.password;
-
-      res.status(201).json(userObj);
+      res.status(201).json(user);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      if (error.message === "El usuario con este email ya existe") {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(500).json({ message: error.message });
+      }
     }
   },
 
@@ -79,11 +75,35 @@ const usersController = {
     }
   },
 
-  /*
   authenticateUser: async (req, res) => {
-   
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return res
+          .status(400)
+          .json({ error: "Email y contraseña son obligatorios" });
+      }
+
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ error: "Correo no registrado" });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ error: "Contraseña incorrecta" });
+      }
+
+      const userObj = user.toObject();
+      delete userObj.password;
+
+      res.status(200).json(userObj); 
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error del servidor" });
+    }
   },
-  */
 };
 
 module.exports = usersController;

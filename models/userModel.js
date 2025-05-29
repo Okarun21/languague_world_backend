@@ -10,20 +10,20 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: { 
+  password: {
     type: String,
-    required: true 
+    required: true,
   },
   creation_date: {
     type: Date,
     required: true,
     default: Date.now,
-  } /*,
+  },
   verified: {
     type: Boolean,
     required: true,
     default: false
-  }*/,
+  },
 });
 
 const User = mongoose.model("User", userSchema);
