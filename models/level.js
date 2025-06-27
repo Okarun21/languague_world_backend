@@ -49,6 +49,11 @@ const levelSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    modo: {
+        type: String,
+        required: true,
+        enum: ['memorama', 'emparejamiento'],
+    },
     cartas: {
         type: [cartaSchema],
         required: true,

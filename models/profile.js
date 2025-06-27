@@ -25,10 +25,14 @@ const profileSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  puntos: {         
+    type: Number,
+    default: 0,
+  },
   avatar: { type: avatarSchema, default: {} },
   progreso: {
     type: progressSchema,
-    default: { es: {}, en: {}, fr: {} },
+    default: () => ({ es: [], en: [], fr: [] }),
   },
   logros: { type: [achievementsSchema], default: [] },
 });

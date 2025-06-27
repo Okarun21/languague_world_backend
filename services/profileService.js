@@ -24,7 +24,7 @@ const profileService = {
     const profile = new Profile({
       cuenta_id,
       nombre_usuario: nombre_usuario.trim(),
-      progreso: { es: {}, en: {}, fr: {} },
+      progreso: { es: [], en: [], fr: [] },
     });
     await profile.save();
     return profile;
